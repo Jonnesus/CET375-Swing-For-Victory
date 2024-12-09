@@ -54,7 +54,7 @@ public class PlayerGrappling : MonoBehaviour
             StartGrapple();
 
         CheckForGrapplePoints();
-        UpdateGrappleText();
+        //UpdateGrappleText();
 
         // Cooldown timer for grappling
         if (grappleCooldownTimer > 0)
@@ -178,8 +178,8 @@ public class PlayerGrappling : MonoBehaviour
         return grapplePoint;
     }
 
-    private void UpdateGrappleText()
+/*    private void UpdateGrappleText()
     {
         grappleLimitText.text = "Grapples: " + grappleLimit;
-    }
+    }*/
 }
