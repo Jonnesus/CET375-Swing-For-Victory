@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             if (localPlayer)
+            {
                 RoomManager.instance.SpawnPlayer();
+                PhotonNetwork.LocalPlayer.AddScore(1);
+            }
 
             Destroy(transform.parent.gameObject);
         }
