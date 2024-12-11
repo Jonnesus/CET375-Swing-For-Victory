@@ -12,6 +12,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public Transform spawnPoint;
 
+    public string roomNameToJoin = "Test Room";
+
     private string nickname = "Unnamed";
 
     private void Awake()
@@ -28,34 +30,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Connecting...");
 
-        PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, new Photon.Realtime.RoomOptions() { MaxPlayers = 5, IsVisible = true, IsOpen = true }, null);
         nicknamePanel.SetActive(false);
         connectionPanel.SetActive(true);
-    }
-
-/*    private void Start()
-    {
-        Debug.Log("Connecting...");
-
-        PhotonNetwork.ConnectUsingSettings();
-    }*/
-
-    public override void OnConnectedToMaster()
-    {
-        base.OnConnectedToMaster();
-
-        Debug.Log("Connected to master");
-
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-
-        Debug.Log("Joined Lobby");
-
-        PhotonNetwork.JoinOrCreateRoom("Test", null, null);
     }
 
     public override void OnJoinedRoom()
