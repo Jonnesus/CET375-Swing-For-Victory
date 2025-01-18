@@ -12,12 +12,21 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= _damage;
 
-        if (health <= 0)
+        if (health == 5)
         {
             if (localPlayer)
             {
                 RoomManager.instance.SpawnPlayer();
                 PhotonNetwork.LocalPlayer.AddScore(1);
+            }
+
+            Destroy(transform.parent.gameObject);
+        }
+        else if (health <= 0)
+        {
+            if (localPlayer)
+            {
+                RoomManager.instance.SpawnPlayer();
             }
 
             Destroy(transform.parent.gameObject);
