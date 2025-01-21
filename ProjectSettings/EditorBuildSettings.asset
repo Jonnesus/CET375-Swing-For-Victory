@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: ac9af9ccd4b07d043abd59e6d13ae36a
+  - enabled: 1
+    path: Assets/Scenes/FirstLevel.unity
+    guid: ca3fb5137ab41104bb104a101f059506
+  - enabled: 1
+    path: Assets/Scenes/SecondLevel.unity
+    guid: bcc976efe6a10a64eba92fae39ca36b2
+  - enabled: 1
+    path: Assets/Scenes/ThirdLevel.unity
+    guid: b46ad73283c7e3644855b8dff598f32d
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d59eed1a9b06d204a8f524c16b6bfa08,
       type: 2}

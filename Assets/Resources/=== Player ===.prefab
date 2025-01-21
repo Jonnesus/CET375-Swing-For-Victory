@@ -540,7 +540,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   lineRenderer: {fileID: 8806021877580739420}
-  maxGrappleDistance: 10
+  maxGrappleDistance: 50
   grappleDelayTime: 0.15
   overshootYAxis: 0.25
   grappleLimit: 0

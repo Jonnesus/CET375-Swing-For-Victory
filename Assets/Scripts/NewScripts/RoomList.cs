@@ -1,25 +1,25 @@
-using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomList : MonoBehaviourPunCallbacks
 {
     public static RoomList instance;
 
-    public GameObject roomManagerGameobject;
     public GameObject createNewRoomButton;
     public GameObject maximumRoomsDisplay;
-
-    public RoomManager roomManager;
 
     [Header("UI")]
     public Transform roomListParent;
     public GameObject roomListItenPrefab;
 
     private List<RoomInfo> cachedRoomList = new List<RoomInfo>();
+
+    private string cachedRoomNameToCreate;
 
     private void Awake()
     {
@@ -37,6 +37,16 @@ public class RoomList : MonoBehaviourPunCallbacks
         yield return new WaitUntil(() => !PhotonNetwork.IsConnected);
 
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public void ChangeRoomToCreateName(string _roomName)
+    {
+        cachedRoomNameToCreate = _roomName;
+    }
+
+    public void CreateRoomByIndex(int _sceneIndex)
+    {
+        JoinRoomByName(cachedRoomNameToCreate, _sceneIndex);
     }
 
     public override void OnConnectedToMaster()
@@ -79,7 +89,7 @@ public class RoomList : MonoBehaviourPunCallbacks
             }
         }
 
-        if (cachedRoomList.Count >= 5)
+        if (cachedRoomList.Count >= 4)
         {
             createNewRoomButton.SetActive(false);
             maximumRoomsDisplay.SetActive(true);
@@ -103,21 +113,34 @@ public class RoomList : MonoBehaviourPunCallbacks
         foreach (var room in cachedRoomList)
         {
             GameObject roomItem = Instantiate(roomListItenPrefab, roomListParent);
-            roomItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = room.Name;
+            string roomMapName = "";
+
+            object mapNameObject;
+
+            if (room.CustomProperties.TryGetValue("mapName", out mapNameObject))
+                roomMapName = (string)mapNameObject;
+
+            roomItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = room.Name + " (" + roomMapName + ")";
             roomItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = room.PlayerCount + "/5";
+
             roomItem.GetComponent<RoomItemButton>().roomName = room.Name;
+
+            int roomSceneIndex = 1;
+            object sceneIndexObject;
+
+            if (room.CustomProperties.TryGetValue("mapSceneIndex", out sceneIndexObject))
+                roomSceneIndex = (int)sceneIndexObject;
+
+            roomItem.GetComponent<RoomItemButton>().sceneIndex = roomSceneIndex;
         }
     }
 
-    public void JoinedRoomByName(string _name)
+    public void JoinRoomByName(string _name, int _sceneIndex)
     {
-        roomManager.roomNameToJoin = _name;
-        roomManagerGameobject.SetActive(true);
-        gameObject.SetActive(false);
-    }
+        PlayerPrefs.SetString("RoomNameToJoin", _name);
 
-    public void ChangeRoomToCreateName(string _roomName)
-    {
-        roomManager.roomNameToJoin = _roomName;
+        gameObject.SetActive(false);
+
+        SceneManager.LoadScene(_sceneIndex);
     }
 }
