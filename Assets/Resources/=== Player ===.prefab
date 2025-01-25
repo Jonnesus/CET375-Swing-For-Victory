@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 1117956445983909442}
   - component: {fileID: 8536880909173617329}
   - component: {fileID: 1995071258936205349}
-  - component: {fileID: 8864270956494142255}
+  - component: {fileID: 4177715247813681497}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
   m_TagString: Player
@@ -749,7 +749,7 @@ MonoBehaviour:
   movement: {fileID: 1408376242284642756}
   grappling: {fileID: 378244168735992914}
   keyboardMovement: {fileID: 1995071258936205349}
-  mouseLook: {fileID: 8864270956494142255}
+  mouseLook: {fileID: 4177715247813681497}
   Camera: {fileID: 3009023132793616184}
   localPlayerGFX: {fileID: 5781835796534157993}
   localPlayerPredictionPoint: {fileID: 1886618098455641237}
@@ -784,7 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 8
   maxVelChange: 10
---- !u!114 &8864270956494142255
+--- !u!114 &4177715247813681497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
